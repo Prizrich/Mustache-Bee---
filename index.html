@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mustache Bee — Симулятор торговли 2.0</title>
-    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -23,7 +23,7 @@
                 <div class="bee-logo">
                     <span class="top-hat">🎩</span>
                     <span class="bee-emoji">🐝</span>
-                    <span class="mustache">˘˘</span>
+                    <span class="mustache">🕦</span>
                 </div>
             </div>
             <h1>Усатый пчел</h1>
@@ -41,18 +41,14 @@
         <div class="game-main">
             <!-- ЛЕВАЯ СТОРОНА: УПРАВЛЕНИЕ ВИТРИНОЙ -->
             <div class="shop-panel">
+                <!-- ОЧИЩЕННЫЙ БЛОК УПРАВЛЕНИЯ БЕЗ ДУБЛИКАТОВ -->
                 <div class="actions">
                     <button class="action-btn day-btn" onclick="triggerNextDay()">☀️ Следующий день</button>
-    <button class="action-btn" onclick="triggerMarketing()">📢 Запустить рекламу (500 💎)</button>
-    <!-- НАША НОВАЯ АВАРЫЙНАЯ КНОПКА СБРОСА -->
-    <button class="action-btn reset-game-btn" onclick="triggerResetGame()" title="Начать бизнес с нуля">🔄 Сброс лора</button>
-</div>
-                    <button class="action-btn day-btn" onclick="triggerNextDay()">☀️ Следующий день</button>
                     <button class="action-btn" onclick="triggerMarketing()">📢 Запустить рекламу (500 💎)</button>
+                    <button class="action-btn reset-game-btn" onclick="triggerResetGame()" title="Начать бизнес с нуля">🔄 Сброс лора</button>
                 </div>
                 
                 <h3>🛒 Твоя витрина товаров</h3>
-                <!-- ЖЕСТКИЙ ФИКС АЙДИШНИКА ПОД GAME.JS -->
                 <div class="products-area" id="products-container">
                     <!-- Загружается динамически через game.js -->
                 </div>
@@ -98,7 +94,7 @@
                             <!-- Сообщения чата -->
                         </div>
                         
-                        <!-- ПРАВИЛЬНАЯ МОНОЛИТНАЯ КАПСУЛА ВВОДА С КНОПКОЙ ОЧИСТКИ -->
+                        <!-- МОНОЛИТНАЯ КАПСУЛА ВВОДА С КНОПКОЙ ОЧИСТКИ -->
                         <div class="mail-input-area">
                             <button class="clear-chat-btn" onclick="clearCurrentChat()" title="Очистить историю чата">🗑️</button>
                             <input type="text" id="mail-input-field" placeholder="Напиши ответ..." onkeydown="if(event.key==='Enter') sendMailMessage()">
@@ -155,7 +151,7 @@
         </div>
     </div>
 
-    <!-- ИДЕАЛЬНЫЙ ПОРЯДОК ПОДКЛЮЧЕНИЯ МОДУЛЕЙ -->
+    <!-- ПОРЯДОК ПОДКЛЮЧЕНИЯ МОДУЛЕЙ -->
     <script src="js/config.js"></script>
     <script src="js/ai.js"></script>
     <script src="js/game.js"></script>
