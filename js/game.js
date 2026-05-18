@@ -73,7 +73,7 @@ class MarketEngine {
             // Шанс перехватить компромат при атаке
             if (Math.random() < 0.50) {
                 addCompromat(15);
-                addMailMessage("system", "🔍 Внимание! Перехвачены логи бот-атаки Карася! Компромат на Старлика +15%!", true);
+                addMailMessage("system", "🔍 Внимание! Перехвачены логи бот-атаки KAPACb! Компромат на Старлика +15%!", true);
             }
         }
     }
@@ -81,7 +81,7 @@ class MarketEngine {
     sueRival() {
         if (this.state.defeatedRival) return false;
         if (this.state.compromat < GAME_CONFIG.compromatNeeded) {
-            alert("⚖️ Недостаточно улик! Накопи 100% компромата, перехватывая набеги Карася!");
+            alert("⚖️ Недостаточно улик! Накопи 100% компромата, перехватывая набеги KAPACb!");
             return false;
         }
 
@@ -109,7 +109,7 @@ class MarketEngine {
     }
 }
 
-// ИНИЦИАЛИЗАЦИЯ И СТАРТОВОЕ СОСТОЯНИЕ ХАТЫ BBM
+// ИНИЦИАЛИЗАЦИЯ И СТАРТОВОЕ СОСТОЯНИЕ ХАТЫ BBM С СИНХРОННЫМИ КЛЮЧАМИ И НИКАМИ
 let gameState = {
     money: GAME_CONFIG.startMoney,
     level: 1,
@@ -123,10 +123,10 @@ let gameState = {
     products: [],
     chats: {
         system: [{ text: "📢 Добро пожаловать в мессенджер BBM! Управляй ульем, закупай товары и развивай свой медовый бизнес без чужой диктатуры! 🛠️🐝", time: "Система", incoming: true }],
-        NAHIDA: [{ text: "👋 Здарова! Я тут чекаю рынок Спавна. Если скучно — пиши 'анекдот' или 'что по рынку'!", time: "Нахида", incoming: true }],
-        PETPO: [{ text: "👀 Эй, хозяин! Цены кусаются... Скинь кристаллы за спутник Пепто!", time: "Пепто", incoming: true }],
+        nahida: [{ text: "👋 Здарова! Я тут чекаю рынок Спавна. Если скучно — пиши 'анекдот' или 'что по рынку'!", time: "NAHIDA", incoming: true }],
+        pepto: [{ text: "👀 Эй, хозяин! Цены кусаются... Скинь кристаллы за спутник PETPO!", time: "PETPO", incoming: true }],
         mushroom: [{ text: "🍄 Привет-привет! Как там пчёлы? Почкуются у алтаря?", time: "Гриб", incoming: true }],
-        KAPACb: [{ text: "🐟 Чё по чем? Дороговато у тебя... Мой клан Антегрия следит за витриной.", time: "Карась", incoming: true }],
+        karas: [{ text: "🐟 Чё по чем? Дороговато у тебя... Мой клан Антегрия следит за витриной.", time: "KAPACb", incoming: true }],
         starlik: [{ text: "😈 Ха-ха! Твой магазин скоро закроется, мой киберпанк-спавн сожрет этот улей!", time: "Старлик", incoming: true }]
     }
 };
@@ -211,12 +211,11 @@ function sendMailMessage() {
         else if (responseType === "default_nahida") replyText = MAIL_RESPONSES.nahida.default;
         
         else if (responseType === "пасхалка") {
-            if (contact === "pepto") replyText = "Сам иди нафиг! Я вообще-то VIP-покупатель и единственный, кто твои ржавые спутники Пепто за кристаллы оценивал! 😡";
-            if (contact === "mushroom") replyText = "Ассимиляция березовым 5G завершена. Я ухожу в изолятор, с токсинами на коленях общаться не намерен. 🕦";
-            if (contact === "karas") replyText = "ЧЁ СКАЗАЛ?! Всё, твоему улью хана! Мой клан Антегрия уже заходит на server со стаками динамита и X-Ray! 💥💀";
-            if (contact === "starlik") replyText = "Удалить этот магазин со Спавна немедленно! Бан по айпи и железу за жесткое неуважение к администрации проекта! ⛓️❌";
-            if (contact === "nahida") replyText = "Ахахаха! Хорош! Напиши это Старлику в ЛС, у него вся серверная консоль синим пламенем сгорит! 😂🔥";
-            if (contact === "supplier") replyText = "Ну и разгружай свои мешки сам! Отменяю поставку красителей и пирогов. Прощай!";
+            if (contact === "pepto") replyText = MAIL_RESPONSES.pepto.пасхалка;
+            if (contact === "mushroom") replyText = MAIL_RESPONSES.mushroom.пасхалка;
+            if (contact === "karas") replyText = MAIL_RESPONSES.karas.пасхалка;
+            if (contact === "starlik") replyText = MAIL_RESPONSES.starlik.пасхалка;
+            if (contact === "nahida") replyText = MAIL_RESPONSES.nahida.пасхалка;
         }
         else replyText = "Понял тебя. Ну, будет повод — спишемся на сервере. 👌";
 
@@ -225,6 +224,7 @@ function sendMailMessage() {
     }, 800);
 }
 
+// ОЧИСТКА ТЕКУЩЕГО ЧАТА
 function clearCurrentChat() {
     const contact = gameState.activeContact;
     if (confirm(`Вы уверены, что хотите стереть логи переписки с [${contact.toUpperCase()}]?`)) {
@@ -255,7 +255,15 @@ function renderChatMessages() {
 
 function selectContact(slug) {
     gameState.activeContact = slug;
-    document.getElementById("current-contact-title").innerText = slug.toUpperCase();
+    
+    let displayName = slug.toUpperCase();
+    if (slug === "karas") displayName = "KAPACb";
+    if (slug === "starlik") displayName = "СТАРЛИК";
+    if (slug === "nahida") displayName = "NAHIDA";
+    if (slug === "pepto") displayName = "PETPO";
+    if (slug === "mushroom") displayName = "ГРИБ";
+
+    document.getElementById("current-contact-title").innerText = displayName;
     
     const nodes = document.querySelectorAll(".mail-contact");
     nodes.forEach(n => n.classList.remove("active"));
@@ -313,14 +321,21 @@ function addExp(amount) {
 }
 function addCompromat(amount) { gameState.compromat = Math.min(100, gameState.compromat + amount); }
 
+// ИСПРАВЛЕННАЯ СИНХРОНИЗИРОВАННАЯ ФУНКЦИЯ СЛУЧАЙНЫХ ОТЗЫВОВ ДЛЯ AI.JS
 function generateRandomReview() {
-    const authors = ["Пепто", "Гриб", "Карась"];
-    const author = authors[Math.floor(Math.random() * authors.length)];
+    // Передаем системные строчные английские ID вместо кириллицы!
+    const slugs = ["pepto", "mushroom", "karas"];
+    const slug = slugs[Math.floor(Math.random() * slugs.length)];
     const prod = gameState.products[Math.floor(Math.random() * gameState.products.length)];
     
     if (!prod) return;
     const isPositive = (prod.userPrice / prod.basePrice) <= 1.35;
-    const txt = AIDirector.generateReviewText(author, prod.name, isPositive, prod.userPrice);
+    
+    // Передаем slug ИИ-директору
+    const txt = AIDirector.generateReviewText(slug, prod.name, isPositive, prod.userPrice);
+    
+    // Достаем красивый каноничный ник капсом из базы ai.js
+    const authorName = REVIEWS_DB[slug] ? REVIEWS_DB[slug].authorName : slug.toUpperCase();
 
     const box = document.getElementById("reviews-container-box");
     if (!box) return;
@@ -329,7 +344,7 @@ function generateRandomReview() {
     card.className = "review-item";
     card.style.borderLeft = isPositive ? "5px solid #4caf50" : "5px solid #f44336";
     card.innerHTML = `
-        <div class="review-author">👤 ${author} <span class="review-rating">${isPositive?'⭐⭐⭐⭐⭐':'⭐'}</span></div>
+        <div class="review-author">👤 ${authorName} <span class="review-rating">${isPositive?'⭐⭐⭐⭐⭐':'⭐'}</span></div>
         <p class="review-text"><b>[${prod.name}]:</b> ${txt}</p>
         <div class="review-time">Только что на Спавне</div>
     `;
@@ -341,7 +356,6 @@ function openRestockModal(id) {
     const p = gameState.products.find(item => item.id === id);
     const box = document.getElementById("supplier-items-list");
     
-    // Переписали логику: теперь вводим "Штуки", а базовая стоимость идет за 1 единицу!
     box.innerHTML = `
         <div class="purchase-item">
             <div class="purchase-info">
@@ -361,7 +375,6 @@ function openRestockModal(id) {
     document.getElementById("supplier-modal").classList.add("active");
 }
 
-// ПЕРЕСЧЕТ СТРОГО 1 К 1
 function recalculateRestockCost(id) {
     const p = gameState.products.find(item => item.id === id);
     const input = document.getElementById("restock-items-count");
@@ -369,11 +382,10 @@ function recalculateRestockCost(id) {
     
     if (isNaN(count) || count < 1) count = 1;
     
-    const totalCost = p.cost * count; // Никаких скрытых умножений на 5!
+    const totalCost = p.cost * count;
     document.getElementById("restock-total-cost").innerText = totalCost;
 }
 
-// ЗАКУПКА СТРОГО ПОШТУЧНО
 function buyCustomItems(id) {
     const p = gameState.products.find(item => item.id === id);
     const input = document.getElementById("restock-items-count");
@@ -385,7 +397,7 @@ function buyCustomItems(id) {
 
     if (gameState.money >= totalCost) {
         gameState.money -= totalCost;
-        p.quantity += count; // Прибавляем ровно столько, сколько ввел игрок
+        p.quantity += count;
         
         updateUI();
         renderShowcaseProducts();
@@ -399,6 +411,7 @@ function buyCustomItems(id) {
 
 function closeSupplierModal() { document.getElementById("supplier-modal").classList.remove("active"); }
 
+// НАДЁЖНЫЙ АВТОЗАПУСК ИГРОВОГО ДВИЖКА
 function startGameEngine() {
     console.log("Движок Mustache Bee успешно запущен!");
     loadLevelProducts();
@@ -411,62 +424,4 @@ if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", startGameEngine);
 } else {
     startGameEngine();
-}
-
-// ФУНКЦИЯ ДЛЯ ПОЛНОГО ОБНУЛЕНИЯ ВСЕГО ИГРОВОГО ПРОГРЕССА
-function triggerResetGame() {
-    if (confirm("🚨 ВНИМАНИЕ! Вы хотите полностью обнулить свой медовый бизнес, стереть компромат на Старлика и начать лор заново?")) {
-        if (confirm("Вы ТОЧНО уверены? Назад дороги не будет, улей закроется!")) {
-            
-            // 1. Возвращаем дефолтные статы в gameState
-            gameState.money = GAME_CONFIG.startMoney;
-            gameState.level = 1;
-            gameState.exp = 0;
-            gameState.reputation = GAME_CONFIG.startReputation;
-            gameState.compromat = 0;
-            gameState.rivalPower = 50;
-            gameState.marketingBonus = 1.0;
-            gameState.activeContact = "system";
-            gameState.defeatedRival = false;
-
-            // 2. Стираем и перезапускаем чаты BBM
-            gameState.chats = {
-                system: [{ text: "📢 BBM: Система успешно перезагружена! Прогресс обнулен. Начните свой бизнес заново без диктатуры! 🛠️🐝", time: "Система", incoming: true }],
-                nahida: [{ text: "👋 Здарова! Я тут снова чекаю рынок Спавна. Если скучно — пиши 'анекдот' или 'что по рынку'!", time: "Нахида", incoming: true }],
-                pepto: [{ text: "👀 Эй, хозяин! Цены кусаются... Скинь кристаллы за спутник Пепто!", time: "Пепто", incoming: true }],
-                mushroom: [{ text: "🍄 Привет-привет! Как там пчёлы? Почкуются у алтаря?", time: "Гриб", incoming: true }],
-                karas: [{ text: "🐟 Чё по чем? Дороговато у тебя... Мой клан Антегрия следит за витриной.", time: "Карась", incoming: true }],
-                starlik: [{ text: "😈 Ха-ха! Твой магазин скоро закроется, мой киберпанк-спавн сожрет этот улей!", time: "Старлик", incoming: true }]
-            };
-
-            // 3. Возвращаем Старлика на панель суда, если он был забанен
-            const courtWindow = document.getElementById("court-window");
-            if (courtWindow) {
-                courtWindow.innerHTML = `
-                    <div class="rival-header">
-                        <div class="rival-avatar">⛓️👨‍💼</div>
-                        <div class="rival-info">
-                            <h3>Старлик (Киберпанк-Диктатор)</h3>
-                            <p>Статус: пытается удалить твой бизнес со Спавна</p>
-                        </div>
-                    </div>
-                    <div class="rival-stats">
-                        <div class="rival-power-bar"><span>Наглость:</span><progress id="rival-progress" value="50" max="100"></progress></div>
-                        <div class="compromat-bar"><span>Компромат:</span><progress id="compromat-progress" value="0" max="100"></progress></div>
-                    </div>
-                    <div class="rival-actions">
-                        <button class="action-btn reset-btn" id="sue-boss-btn" onclick="triggerLawsuit()">⚖️ ПЕРЕДАТЬ ДЕЛО В СУД И ЗАБАНЬ СТАРЛИКА</button>
-                    </div>
-                `;
-            }
-
-            // 4. Перезапускаем витрину и интерфейс
-            loadLevelProducts();
-            updateUI();
-            renderShowcaseProducts();
-            selectContact("system"); // Принудительно открываем системный чат
-            
-            alert("🧹 Прогресс успешно сброшен! Добро пожаловать на Спавн 2.0!");
-        }
-    }
 }
