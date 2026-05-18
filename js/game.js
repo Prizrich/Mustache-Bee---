@@ -412,3 +412,61 @@ if (document.readyState === "loading") {
 } else {
     startGameEngine();
 }
+
+// ФУНКЦИЯ ДЛЯ ПОЛНОГО ОБНУЛЕНИЯ ВСЕГО ИГРОВОГО ПРОГРЕССА
+function triggerResetGame() {
+    if (confirm("🚨 ВНИМАНИЕ! Вы хотите полностью обнулить свой медовый бизнес, стереть компромат на Старлика и начать лор заново?")) {
+        if (confirm("Вы ТОЧНО уверены? Назад дороги не будет, улей закроется!")) {
+            
+            // 1. Возвращаем дефолтные статы в gameState
+            gameState.money = GAME_CONFIG.startMoney;
+            gameState.level = 1;
+            gameState.exp = 0;
+            gameState.reputation = GAME_CONFIG.startReputation;
+            gameState.compromat = 0;
+            gameState.rivalPower = 50;
+            gameState.marketingBonus = 1.0;
+            gameState.activeContact = "system";
+            gameState.defeatedRival = false;
+
+            // 2. Стираем и перезапускаем чаты BBM
+            gameState.chats = {
+                system: [{ text: "📢 BBM: Система успешно перезагружена! Прогресс обнулен. Начните свой бизнес заново без диктатуры! 🛠️🐝", time: "Система", incoming: true }],
+                nahida: [{ text: "👋 Здарова! Я тут снова чекаю рынок Спавна. Если скучно — пиши 'анекдот' или 'что по рынку'!", time: "Нахида", incoming: true }],
+                pepto: [{ text: "👀 Эй, хозяин! Цены кусаются... Скинь кристаллы за спутник Пепто!", time: "Пепто", incoming: true }],
+                mushroom: [{ text: "🍄 Привет-привет! Как там пчёлы? Почкуются у алтаря?", time: "Гриб", incoming: true }],
+                karas: [{ text: "🐟 Чё по чем? Дороговато у тебя... Мой клан Антегрия следит за витриной.", time: "Карась", incoming: true }],
+                starlik: [{ text: "😈 Ха-ха! Твой магазин скоро закроется, мой киберпанк-спавн сожрет этот улей!", time: "Старлик", incoming: true }]
+            };
+
+            // 3. Возвращаем Старлика на панель суда, если он был забанен
+            const courtWindow = document.getElementById("court-window");
+            if (courtWindow) {
+                courtWindow.innerHTML = `
+                    <div class="rival-header">
+                        <div class="rival-avatar">⛓️👨‍💼</div>
+                        <div class="rival-info">
+                            <h3>Старлик (Киберпанк-Диктатор)</h3>
+                            <p>Статус: пытается удалить твой бизнес со Спавна</p>
+                        </div>
+                    </div>
+                    <div class="rival-stats">
+                        <div class="rival-power-bar"><span>Наглость:</span><progress id="rival-progress" value="50" max="100"></progress></div>
+                        <div class="compromat-bar"><span>Компромат:</span><progress id="compromat-progress" value="0" max="100"></progress></div>
+                    </div>
+                    <div class="rival-actions">
+                        <button class="action-btn reset-btn" id="sue-boss-btn" onclick="triggerLawsuit()">⚖️ ПЕРЕДАТЬ ДЕЛО В СУД И ЗАБАНЬ СТАРЛИКА</button>
+                    </div>
+                `;
+            }
+
+            // 4. Перезапускаем витрину и интерфейс
+            loadLevelProducts();
+            updateUI();
+            renderShowcaseProducts();
+            selectContact("system"); // Принудительно открываем системный чат
+            
+            alert("🧹 Прогресс успешно сброшен! Добро пожаловать на Спавн 2.0!");
+        }
+    }
+}
