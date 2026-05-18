@@ -611,3 +611,19 @@ progress { width: 60%; height: 15px; border-radius: 8px; }
     width: 100% !important;
     margin: 8px 0 !important;
 }
+
+/* КНОПКА ПОЛНОГО СБРОСА ИГРЫ */
+.reset-game-btn {
+    background: linear-gradient(135deg, #e63946 0%, #d62828 100%) !important;
+    box-shadow: 0 4px 0 #9b1c1c !important;
+}
+
+.reset-game-btn:hover {
+    background: linear-gradient(135deg, #ff4d6d 0%, #e63946 100%) !important;
+}
+
+.reset-game-btn:active {
+    transform: translateY(3px) !important;
+    box-shadow: 0 1px 0 #9b1c1c !important;
+}
+
