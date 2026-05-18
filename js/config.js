@@ -27,12 +27,13 @@ const GAME_CONFIG = {
     compromatNeeded: 100
 };
 
+// Прописываем каноничные ники для отображения в левой панели контактов index.html
 const MAIL_DIALOGS = {
     system: { name: "Система" },
-    supplier: { name: "Поставщики" },
-    pepto: { name: "Пепто" },
+    supplier: { name: "Валя (Поставщик)" },
+    pepto: { name: "PETPO" },
     mushroom: { name: "Гриб" },
-    karas: { name: "Карась" },
-    starlik: { name: "Старлик" },
-    nahida: { name: "Нахида" }
+    karas: { name: "KAPACb" },
+    starlik: { name: "СТАРЛИК" },
+    nahida: { name: "NAHIDA" }
 };
