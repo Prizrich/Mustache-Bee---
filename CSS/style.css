@@ -344,15 +344,13 @@ h1, h2, h3, h4 {
     border: 2px solid #ffbc6e !important; 
     box-shadow: inset 0 2px 4px rgba(92, 58, 0, 0.1) !important;
     
-    /* ФИКС СБОЯ: ВМЕЩАЕТСЯ НА 100% БЕЗ СДВИГА ВПРАВО */
-    width: auto !important;
-    max-width: 100% !important; 
-    margin: 5px 10px 12px 10px !important; 
-    box-sizing: border-box !important;
+    /* УЛЬТИМАТИВНЫЙ ФИКС ШИРИНЫ (Чтобы не вылезала вправо ни на пиксель) */
+    width: calc(100% - 24px) !important; /* Насильно ужимаем под ширину чата с учетом отступов */
+    margin: 5px auto 12px auto !important; /* Идеальные центрованные отступы и зазор снизу */
+    box-sizing: border-box !important; /* Жестко заставляет браузер считать padding внутрь ширины */
     flex-shrink: 0 !important;
-    position: static !important;
+    position: relative !important;
 }
-
 .clear-chat-btn {
     background: #ffd966 !important;
     color: #4a3511 !important;
@@ -594,6 +592,14 @@ progress { width: 60%; height: 15px; border-radius: 8px; }
         padding: 6px 10px !important;
     }
     
-    #mail-input-field { font-size: 0.85rem !important; }
-    .mail-input-area .small-btn { padding: 6px 12px !important; font-size: 0.8rem !important; }
+   #mail-input-field {
+    flex: 1 !important;
+    width: 100% !important;
+    min-width: 20px !important; /* Позволяет инпуту сжиматься в узких окнах */
+    border: none !important;
+    background: transparent !important;
+    padding: 4px 5px !important;
+    font-size: 0.95rem !important;
+    color: #4a3511 !important;
+    outline: none !important;
 }
