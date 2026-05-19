@@ -352,10 +352,11 @@ h1, h2, h3, h4 {
 .mail-content {
     display: flex !important;
     flex-direction: column !important;
-    height: 100% !important; /* Намертво привязывается к высоте родительского окна 420px/550px */
-    position: relative !important;
+    height: 100% !important;
+    position: relative !important; /* Важно для абсолютного позиционирования инпута */
     box-sizing: border-box !important;
-    overflow: hidden !important; /* Не дает элементам вываливаться наружу */
+    padding-bottom: 65px !important; /* Делаем жёсткий пустой зазор снизу, чтобы инпут не перекрывал сообщения */
+    overflow: hidden !important;
 }
 
 .mail-header {
@@ -369,16 +370,14 @@ h1, h2, h3, h4 {
 }
 
 .mail-messages {
-    flex: 1 1 auto !important; /* Забирает ВСЁ свободное пространство между шапкой и инпутом */
-    overflow-y: auto !important; /* Включает листание, если анекдотов слишком много */
+    flex: 1 1 auto !important;
+    overflow-y: auto !important;
     padding: 10px 5px !important;
     display: flex !important;
     flex-direction: column !important;
     gap: 8px !important;
     box-sizing: border-box !important;
-    
-    /* Жесткое ограничение, чтобы не выталкивать инпут на пол */
-    max-height: calc(100% - 100px) !important; 
+    max-height: 100% !important; /* Позволяет занимать всё место до зазора */
 }
 
 
@@ -421,22 +420,26 @@ h1, h2, h3, h4 {
 /* ===================================================================
    6. ОРАНЖЕВАЯ КАПСУЛА ВВОДА BBM И КОРЗИНА (ФИКС СЕТКИ)
    =================================================================== */
-mail-input-area {
+.mail-input-area {
     display: flex !important;
     align-items: center !important;
-    gap: 12px !important;
+    gap: 10px !important;
     background: #ffebaa !important; 
-    padding: 6px 14px !important;
+    padding: 6px 12px !important;
     border-radius: 30px !important;
     border: 2px solid #ffbc6e !important; 
     box-shadow: inset 0 2px 4px rgba(92, 58, 0, 0.1) !important;
+    box-sizing: border-box !important;
     
-    /* ФИКС ШИРИНЫ И ОТСТУПОВ (Чтобы не вылезала вправо и вниз) */
-    width: calc(100% - 20px) !important; /* Уменьшили до -20px, чтобы она дышала внутри рамок */
-    margin: 5px auto 10px auto !important; /* Добавили 10px снизу, чтобы капсула приподнялась над скруглением коробки */
-    box-sizing: border-box !important; /* Заставляет браузер включать padding в общую ширину */
-    flex-shrink: 0; 
+    /* ХАК С АБСОЛЮТНЫМ ПОЗИЦИОНИРОВАНИЕМ */
+    position: absolute !important;
+    bottom: 10px !important; /* Жёстко прижимаем к полу белой коробки с красивым зазором */
+    left: 10px !important;   /* Идеальный отступ слева */
+    right: 10px !important;  /* Идеальный отступ справа */
+    width: auto !important;   /* Отменяем проценты, теперь ширина регулируется левым и правым отступом! */
+    flex-shrink: 0 !important;
 }
+
 
 .clear-chat-btn {
     background: #ffd966 !important;
@@ -462,12 +465,11 @@ mail-input-area {
 
 #mail-input-field {
     flex: 1 !important;
+    min-width: 50px !important; /* Позволяет инпуту сжиматься, если экран слишком узкий */
     border: none !important;
     background: transparent !important;
-    padding: 6px 5px !important;
-    font-size: 0.95rem !important;
-    color: #4a3511 !important;
     outline: none !important;
+    color: #4a3511 !important;
 }
 
 /* ===================================================================
