@@ -248,24 +248,27 @@ function addExp(amount) {
     }
 }
 
+// ИСПРАВЛЕННАЯ БЕЗОПАСНАЯ ФУНКЦИЯ ГЕНЕРАЦИИ ОТЗЫВОВ
 function generateRandomReview() {
     const slugs = ["pepto", "mushroom", "karas"];
     const slug = slugs[Math.floor(Math.random() * slugs.length)];
     const prod = gameState.products[Math.floor(Math.random() * gameState.products.length)];
     if (!prod) return;
+    
     const isPositive = (prod.userPrice / prod.basePrice) <= 1.35;
     const txt = AIDirector.generateReviewText(slug, prod.name, isPositive, prod.userPrice);
     const authorName = REVIEWS_DB[slug] ? REVIEWS_DB[slug].authorName : slug.toUpperCase();
 
     const box = document.getElementById("reviews-container-box");
     if (!box) return;
+    
     const card = document.createElement("div");
     card.className = "review-item";
-    card.innerHTML = `<p><b>[${prod.name}]</b> от <b>${authorName}</b>: {txt}</p>`;
-    // Подменяем текст шаблона на реальный отзыв ИИ
-    card.innerHTML = card.innerHTML.replace(/{txt}/g, txt);
+    // Жестко и безопасно вшиваем чистый текст без ломания HTML-структуры
+    card.innerHTML = `<p><b>[${prod.name}]</b> от <b>${authorName}</b>: ${txt}</p>`;
     box.insertBefore(card, box.firstChild);
 }
+
 
 function openRestockModal(id) {
     const p = gameState.products.find(item => item.id === id);
