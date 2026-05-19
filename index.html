@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mustache Bee — Симулятор торговли 2.0</title>
-    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -17,7 +17,7 @@
     </div>
 
     <div class="game-container">
-        <!-- ВЫВЕСКА С ПРАВИЛЬНЫМИ КООРДИНАТАМИ -->
+        <!-- ВЫВЕСКА С ТВОИМИ ИДЕАЛЬНЫМИ УСАМИ ˘˘ -->
         <header class="signboard">
             <div class="bee-logo-wrapper">
                 <div class="bee-logo">
@@ -34,18 +34,17 @@
         <div class="stats-bar">
             <div>💎 Баланс: <span id="stat-money">5000</span> кристаллов</div>
             <div>📈 Уровень улья: <span id="stat-level">1</span></div>
-            <div>✨ Опыт: <span id="stat-exp">0</span> / 1000</div>
+            <div>✨ Опыт лора: <span id="stat-exp">0</span> / 1000</div>
             <div>⭐️ Репутация: <span id="stat-reputation">50</span> / 100</div>
         </div>
 
         <div class="game-main">
             <!-- ЛЕВАЯ СТОРОНА: УПРАВЛЕНИЕ ВИТРИНОЙ -->
             <div class="shop-panel">
-                <!-- ОЧИЩЕННЫЙ БЛОК УПРАВЛЕНИЯ БЕЗ ДУБЛИКАТОВ -->
                 <div class="actions">
                     <button class="action-btn day-btn" onclick="triggerNextDay()">☀️ Следующий день</button>
                     <button class="action-btn" onclick="triggerMarketing()">📢 Запустить рекламу (500 💎)</button>
-                    <button class="action-btn reset-game-btn" onclick="triggerResetGame()" title="Начать бизнес с нуля">🔄 Сброс игры</button>
+                    <button class="action-btn reset-game-btn" onclick="triggerResetGame()" title="Начать бизнес с нуля">🔄 Сброс лора</button>
                 </div>
                 
                 <h3>🛒 Твоя витрина товаров</h3>
@@ -62,45 +61,50 @@
                     <button class="window-tab" onclick="switchTab('court')">⚖️ Суд над Старликом</button>
                 </div>
 
-                <!-- ОКНО ПОЧТЫ -->
+                <!-- ОКНО ПОЧТЫ С ТРЁХЭТАЖНОЙ СЕТКОЙ -->
                 <div id="mail-window" class="window-content active">
+                    
+                    <!-- 1. ЛЕВАЯ КОЛОНКА: КОНТАКТЫ -->
                     <div class="mail-sidebar">
                         <div class="mail-contacts" id="contacts-list">
                             <div class="mail-contact active" onclick="selectContact('system')">
                                 <span class="contact-icon">📢</span> <span class="contact-name">Система</span>
                             </div>
                             <div class="mail-contact" onclick="selectContact('nahida')">
-                                <span class="contact-icon">🟢</span> <span class="contact-name">Нахида (Друг)</span>
+                                <span class="contact-icon">🟢</span> <span class="contact-name">NAHIDA</span>
                             </div>
                             <div class="mail-contact" onclick="selectContact('pepto')">
-                                <span class="contact-icon">🛰️</span> <span class="contact-name">Пепто</span>
+                                <span class="contact-icon">🛰️</span> <span class="contact-name">PETPO</span>
                             </div>
                             <div class="mail-contact" onclick="selectContact('mushroom')">
                                 <span class="contact-icon">🍄</span> <span class="contact-name">Гриб</span>
                             </div>
                             <div class="mail-contact" onclick="selectContact('karas')">
-                                <span class="contact-icon">🐟</span> <span class="contact-name">Карась</span>
+                                <span class="contact-icon">🐟</span> <span class="contact-name">KAPACb</span>
                             </div>
                             <div class="mail-contact" onclick="selectContact('starlik')">
                                 <span class="contact-icon">😈</span> <span class="contact-name">Старлик</span>
                             </div>
                         </div>
                     </div>
+
+                    <!-- 2. ПРАВАЯ КОЛОНКА: ТЕКСТ ДИАЛОГА -->
                     <div class="mail-content">
                         <div class="mail-header">
                             <span class="mail-contact-name" id="current-contact-title">Система</span>
                         </div>
                         <div class="mail-messages" id="chat-messages-box">
-                            <!-- Сообщения чата -->
-                        </div>
-                        
-                        <!-- МОНОЛИТНАЯ КАПСУЛА ВВОДА С КНОПКОЙ ОЧИСТКИ -->
-                        <div class="mail-input-area">
-                            <button class="clear-chat-btn" onclick="clearCurrentChat()" title="Очистить историю чата">🗑️</button>
-                            <input type="text" id="mail-input-field" placeholder="Напиши ответ..." onkeydown="if(event.key==='Enter') sendMailMessage()">
-                            <button class="small-btn" onclick="sendMailMessage()">Отправить</button>
+                            <!-- Сообщения чата загружаются через JS -->
                         </div>
                     </div>
+
+                    <!-- 3. НИЖНИЙ ЭТАЖ СЕТКИ: ИЗОЛИРОВАННАЯ КАПСУЛА ВВОДА -->
+                    <div class="mail-input-area">
+                        <button class="clear-chat-btn" onclick="clearCurrentChat()" title="Очистить историю чата">🗑️</button>
+                        <input type="text" id="mail-input-field" placeholder="Напиши ответ..." onkeydown="if(event.key==='Enter') sendMailMessage()">
+                        <button class="small-btn" onclick="sendMailMessage()">Отправить</button>
+                    </div>
+
                 </div>
 
                 <!-- ОКНО ОТЗЫВОВ -->
