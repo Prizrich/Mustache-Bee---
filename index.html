@@ -23,7 +23,7 @@
                 <div class="bee-logo">
                     <span class="top-hat">🎩</span>
                     <span class="bee-emoji">🐝</span>
-                    <span class="mustache"> must </span> <!-- Заглушка, коорды в CSS -->
+                    <span class="mustache">˘˘</span>
                 </div>
             </div>
             <h1>Усатый пчел</h1>
@@ -39,25 +39,26 @@
         </div>
 
         <div class="game-main">
-            <!-- ЛЕВАЯ СТОРОНА: ТОВАРЫ -->
+            <!-- ЛЕВАЯ СТОРОНА: ВИТРИНА ТОВАРОВ -->
             <div class="shop-panel">
                 <div class="actions">
                     <button class="action-btn day-btn" onclick="triggerNextDay()">☀️ Следующий день</button>
                     <button class="action-btn" onclick="triggerMarketing()">📢 Запустить рекламу (500 💎)</button>
                     <button class="action-btn reset-game-btn" onclick="triggerResetGame()">🔄 Сброс лора</button>
                 </div>
+                
                 <h3>🛒 Твоя витрина товаров</h3>
                 <div class="products-area" id="products-container">
-                    <!-- Рендерится через JS -->
+                    <!-- Загружается динамически через game.js -->
                 </div>
             </div>
 
-            <!-- ПРАВАЯ СТОРОНА: МЕССЕНДЖЕР И СУД -->
+            <!-- ПРАВАЯ СТОРОНА: СИСТЕМА ДИАЛОГОВ И СУДА -->
             <div class="windows-panel">
                 <div class="window-tabs">
-                    <button class="window-tab active" id="tab-btn-mail" onclick="switchTab('mail')">📬 Почта BBM</button>
-                    <button class="window-tab" id="tab-btn-reviews" onclick="switchTab('reviews')">💬 Отзывы</button>
-                    <button class="window-tab" id="tab-btn-court" onclick="switchTab('court')">⚖️ Суд над Старликом</button>
+                    <button class="window-tab active" onclick="switchTab('mail')">📬 Почта BBM</button>
+                    <button class="window-tab" onclick="switchTab('reviews')">💬 Отзывы</button>
+                    <button class="window-tab" onclick="switchTab('court')">⚖️ Суд над Старликом</button>
                 </div>
 
                 <!-- ОКНО ПОЧТЫ -->
@@ -72,25 +73,35 @@
                             <div class="mail-contact" onclick="selectContact('starlik')">😈 Старлик</div>
                         </div>
                     </div>
+                    
                     <div class="mail-content">
                         <div class="mail-header">
                             <span class="mail-contact-name" id="current-contact-title">Система</span>
                         </div>
+                        
+                        <!-- Сюда падают сообщения со скроллом -->
                         <div class="mail-messages" id="chat-messages-box">
-                            <!-- Сообщения -->
+                            <!-- Загружается динамически -->
+                        </div>
+                        
+                        <!-- Капсула ввода жестко заперта внутри правого блока -->
+                        <div class="mail-input-area">
+                            <button class="clear-chat-btn" onclick="clearCurrentChat()" title="Очистить историю чата">🗑️</button>
+                            <input type="text" id="mail-input-field" placeholder="Напиши ответ..." onkeydown="if(event.key==='Enter') sendMailMessage()">
+                            <button class="small-btn" onclick="sendMailMessage()">Отправить</button>
                         </div>
                     </div>
                 </div>
 
                 <!-- ОКНО ОТЗЫВОВ -->
-                <div id="reviews-window" class="window-content" style="display:none;">
+                <div id="reviews-window" class="window-content">
                     <div class="reviews-list" id="reviews-container-box">
-                        <!-- Отзывы -->
+                        <!-- ИИ-отзывы -->
                     </div>
                 </div>
 
                 <!-- ОКНО СУДА -->
-                <div id="court-window" class="window-content" style="display:none;">
+                <div id="court-window" class="window-content">
                     <div class="rival-header">
                         <div class="rival-avatar">⛓️👨‍💼</div>
                         <div class="rival-info">
@@ -99,33 +110,38 @@
                         </div>
                     </div>
                     <div class="rival-stats">
-                        <div class="rival-power-bar"><span>Наглость:</span><progress id="rival-progress" value="30" max="100"></progress></div>
-                        <div class="compromat-bar"><span>Компромат:</span><progress id="compromat-progress" value="0" max="100"></progress></div>
+                        <div class="rival-power-bar">
+                            <span>Наглость:</span>
+                            <progress id="rival-progress" value="30" max="100"></progress>
+                        </div>
+                        <div class="compromat-bar">
+                            <span>Компромат:</span>
+                            <progress id="compromat-progress" value="0" max="100"></progress>
+                        </div>
                     </div>
-                    <button class="action-btn reset-btn" id="sue-boss-btn" onclick="triggerLawsuit()">⚖️ ЗАБАНЬ СТАРЛИКА</button>
-                </div>
-
-                <!-- ЗАКРЕПЛЕННЫЙ ИНПУТ (ВСЕГДА ТУТ, НА ДНЕ ПРАВОЙ ПАНЕЛИ) -->
-                <div class="mail-input-area" id="global-mail-input">
-                    <button class="clear-chat-btn" onclick="clearCurrentChat()">🗑️</button>
-                    <input type="text" id="mail-input-field" placeholder="Напиши ответ..." onkeydown="if(event.key==='Enter') sendMailMessage()">
-                    <button class="small-btn" onclick="sendMailMessage()">Отправить</button>
+                    <div class="rival-actions">
+                        <button class="action-btn reset-btn" id="sue-boss-btn" onclick="triggerLawsuit()">⚖️ ПЕРЕДАТЬ ДЕЛО В СУД И ЗАБАНЬ СТАРЛИКА</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- МОДАЛКА ЗАКУПОК ВАЛИ -->
+    <!-- МОДАЛКА ЗАКУПКИ -->
     <div class="modal-overlay" id="supplier-modal">
         <div class="modal-content">
             <h3>📦 Поставка сырья от Вали</h3>
-            <div class="purchase-list" id="supplier-items-list"></div>
+            <p>Укажи объем партии для закупки у поставщиков:</p>
+            <div class="purchase-list" id="supplier-items-list">
+                <!-- Контент генерируется через game.js -->
+            </div>
             <div style="text-align:right; margin-top:15px;">
                 <button class="action-btn clear-btn" onclick="closeSupplierModal()">Закрыть</button>
             </div>
         </div>
     </div>
 
+    <!-- СКРИПТЫ -->
     <script src="js/config.js"></script>
     <script src="js/ai.js"></script>
     <script src="js/game.js"></script>
