@@ -1,0 +1,613 @@
+/* ===================================================================
+   1. ОБЩИЕ СТИЛИ И ОРИГИНАЛЬНЫЙ МЕДОВЫЙ ФОН
+   =================================================================== */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #ffd966; /* Тёплый оригинальный жёлтый фон пасеки */
+    color: #4a3511;
+}
+
+h1, h2, h3, h4 {
+    margin-top: 0;
+    color: #5c3a00;
+}
+
+/* ГЛАВНАЯ ПОДЛОЖКА ИГРЫ */
+.game-container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #ffebaa; /* Ламповый оранжево-желтый фон */
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(185, 127, 16, 0.3);
+    border: 3px solid #ffbc6e;
+    box-sizing: border-box;
+}
+
+/* ===================================================================
+   2. ШАПКА МАГАЗИНА И ОБЪЕДИНЕННЫЙ ЛОГОТИП ПЧЕЛЫ
+   =================================================================== */
+.signboard {
+    text-align: center;
+    padding: 15px 0 25px 0;
+}
+
+.slogan {
+    font-style: italic;
+    color: #7a5f33;
+    font-size: 1rem;
+    margin-top: 5px;
+}
+
+/* Оригинальная овальная плашка бренда */
+.bee-logo {
+    position: relative;
+    display: inline-block; 
+    background: #ffd966;
+    padding: 15px 40px;
+    border-radius: 100px;
+    box-shadow: 0 5px 0 #b97f10;
+    width: 60px;          
+    height: 60px;         
+}
+
+/* Пчёлка — неподвижный центр */
+.bee-emoji { 
+    font-size: 55px; 
+    line-height: 60px;    
+    display: block;
+    text-align: center;
+    position: relative; 
+    z-index: 2; 
+}
+
+/* НАШИ ЗАЛОЧЕННЫЕ ИДЕАЛЬНЫЕ КООРДИНАТЫ (ПРОЦЕНТЫ + ШАГ В 80PX) */
+.mustache { 
+    position: absolute; 
+    font-size: 28px; 
+    bottom: 15px; 
+    left: 38%; 
+    transform: translateX(-50%); 
+    color: #3d2b1a; 
+    z-index: 3; 
+    white-space: nowrap; 
+}
+
+.top-hat { 
+    position: absolute; 
+    font-size: 26px; 
+    top: 2px; 
+    right: 65px; 
+    transform: none !important;
+    z-index: 3; 
+}
+
+/* ===================================================================
+   3. ВЕРХНЯЯ СТАТИСТИКА
+   =================================================================== */
+.stats-bar {
+    background: linear-gradient(135deg, #ffbc6e, #ff9f1c);
+    padding: 12px;
+    display: flex;
+    justify-content: space-around;
+    font-weight: bold;
+    font-size: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+    border: 2px solid #e9c46a;
+}
+
+/* ===================================================================
+   4. ДВУХКОЛОННАЯ СЕТКА ИНТЕРФЕЙСА
+   =================================================================== */
+.game-main {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 20px;
+}
+
+@media(max-width: 850px) {
+    .game-main { grid-template-columns: 1fr; }
+}
+
+.shop-panel, .windows-panel {
+    background: #fffdf5;
+    padding: 20px;
+    border-radius: 15px;
+    border: 2px solid #ffbc6e;
+    box-shadow: 0 6px 12px rgba(92, 58, 0, 0.05);
+    box-sizing: border-box;
+    
+    /* НАШ ГЛАВНЫЙ ФИКС ДЛЯ ВЫСОТЫ */
+    display: flex !important;
+    flex-direction: column !important;
+    height: 650px !important; /* Насильно растягиваем всю правую панель вниз до конца белой коробки */
+}
+
+.products-area {
+    display: block !important;
+    max-height: 480px !important; /* Жестко запираем витрину по высоте вровень с чатом */
+    overflow-y: auto !important;  /* Врубаем тот самый скроллбар для листания! */
+    padding-right: 8px !important; /* Отступ справа, чтобы скроллбар не налезал на карточки */
+    margin-top: 10px !important;
+    box-sizing: border-box !important;
+}
+
+/* КАРТОЧКА ТОВАРА НА ВИТРИНЕ */
+.product-card {
+    background: linear-gradient(135deg, #fffdf2 0%, #fff9e6 100%) !important;
+    border: 2px solid #ffcc66 !important;
+    border-radius: 16px !important;
+    padding: 18px !important;
+    margin-bottom: 18px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    box-shadow: 0 6px 0 #e6b347 !important;
+    transition: all 0.2s ease !important;
+    position: relative;
+}
+
+.product-card:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 0 #e6b347, 0 10px 20px rgba(185, 127, 16, 0.15) !important;
+}
+
+.product-card h4 {
+    font-size: 1.2rem !important;
+    margin: 0 0 8px 0 !important;
+    color: #5c3a00 !important;
+    font-weight: bold !important;
+}
+
+.product-card p {
+    font-size: 0.85rem !important;
+    color: #6d5225 !important;
+    margin: 4px 0 !important;
+}
+
+.product-card .small-btn {
+    width: 100% !important;
+    background: linear-gradient(135deg, #ffb347 0%, #ffcc66 100%) !important;
+    color: #4a3511 !important; /* Темный текст для лучшей читаемости */
+    border: 2px solid #b97f10 !important;
+    padding: 10px 15px !important;
+    border-radius: 25px !important; /* Круглая кнопка под стиль инпута */
+    font-size: 0.95rem !important;
+    font-weight: bold !important;
+    box-shadow: 0 4px 0 #b97f10 !important;
+    margin-top: 5px !important;
+}
+
+.product-card .small-btn:hover {
+    background: linear-gradient(135deg, #ff9f1c 0%, #ffb347 100%) !important;
+    color: white !important;
+}
+
+.product-card .small-btn:active {
+    transform: translateY(3px) !important;
+    box-shadow: 0 1px 0 #b97f10 !important;
+}
+
+.purchase-item {
+    flex-direction: column !important; /* Разворачиваем в столбик для удобства */
+    align-items: flex-start !important;
+    gap: 15px !important;
+    padding: 15px !important;
+}
+
+.purchase-item-controls {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    gap: 12px !important;
+}
+
+.amount-picker {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+    background: #fffdf5;
+    padding: 6px 12px;
+    border-radius: 10px;
+    border: 1px solid #ffd166;
+}
+
+.amount-picker label {
+    font-size: 0.95rem !important;
+    font-weight: bold !important;
+    color: #5c3a00 !important;
+}
+
+#restock-batches-count {
+    width: 70px !important;
+    padding: 6px 10px !important;
+    border: 2px solid #ffbc6e !important;
+    border-radius: 20px !important;
+    text-align: center !important;
+    font-weight: bold !important;
+    font-size: 1.05rem !important;
+    outline: none !important;
+    background: #ffffff !important;
+}
+
+.cost-tag {
+    font-size: 1.05rem !important;
+    color: #4a3511 !important;
+    text-align: right !important;
+    margin: 5px 0 !important;
+}
+
+.cost-tag b {
+    color: #ff8c00 !important;
+    font-size: 1.25rem !important;
+}
+
+.buy-confirm-btn {
+    width: 100% !important;
+    padding: 12px !important;
+    border-radius: 25px !important;
+    font-size: 1rem !important;
+    margin-top: 5px !important;
+}
+
+.price-input {
+    width: 100% !important;
+    max-width: 120px !important;
+    padding: 8px 12px !important;
+    margin: 12px 0 !important;
+    border: 2px solid #ffbc6e !important;
+    border-radius: 25px !important; /* Скругляем инпут цены в капсулу */
+    text-align: center !important;
+    font-size: 1.1rem !important;
+    font-weight: bold !important;
+    color: #4a3511 !important;
+    background: #ffffff !important;
+    box-shadow: inset 0 2px 4px rgba(92, 58, 0, 0.08) !important;
+    outline: none !important;
+    transition: border-color 0.2s ease;
+}
+
+.price-input:focus {
+    border-color: #ff8c00 !important;
+    box-shadow: inset 0 2px 4px rgba(92, 58, 0, 0.08), 0 0 8px rgba(255, 140, 0, 0.3) !important;
+}
+
+/* ===================================================================
+   5. ВКЛАДКИ ОКНА ДИАЛОГОВ И ОТЗЫВОВ
+   =================================================================== */
+.window-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.window-tab {
+    flex: 1;
+    background: #ffd966;
+    color: #5c3a00;
+    border: 2px solid #e9c46a;
+    padding: 10px;
+    border-radius: 10px 10px 0 0;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+}
+
+.window-tab.active {
+    background: #fffdf5;
+    border-bottom: 2px solid #fffdf5;
+    color: #ff8c00;
+}
+
+.window-content {
+    display: none;
+    flex: 1 !important; /* Заставляет окно забирать всю оставшуюся высоту панели */
+    flex-direction: column !important;
+    box-sizing: border-box !important;
+}
+
+.window-content.active {
+    display: flex !important;
+}
+
+
+/* ИНТЕРФЕЙС МЕССЕНДЖЕРА BBM */
+#mail-window {
+    display: none;
+    grid-template-columns: 140px 1fr;
+    gap: 15px;
+    flex: 1 !important; /* Растягивает сетку чата на максимум */
+    height: 100% !important; /* Убираем жесткие 420px */
+}
+
+#mail-window.active {
+    display: grid !important;
+}
+
+.mail-sidebar {
+    border-right: 2px solid #ffe5b4;
+    padding-right: 5px;
+    overflow-y: auto !important;
+    height: 100% !important;
+}
+
+.mail-contact {
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: bold;
+    transition: background 0.1s;
+}
+
+.mail-contact:hover { background: #fffae8; }
+.mail-contact.active { background: #ffebaa; color: #ff8c00; }
+
+.mail-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    position: relative;
+}
+
+.mail-header {
+    font-weight: bold;
+    font-size: 1.1rem;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #ffe5b4;
+    color: #5c3a00;
+}
+
+.mail-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.mail-message {
+    max-width: 80%;
+    padding: 10px 14px;
+    border-radius: 12px;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    box-sizing: border-box;
+}
+
+.mail-message.incoming {
+    background: #fffae8;
+    align-self: flex-start;
+    border-left: 4px solid #ffbc6e;
+}
+
+.mail-message.outgoing {
+    background: #ffeebf;
+    align-self: flex-end;
+    margin-left: auto;
+    border-right: 4px solid #ff8c00;
+}
+
+.message-text {
+    font-size: 0.85rem; 
+    word-break: break-word;
+    white-space: pre-line; /* Уважает абзацы Системы */
+}
+
+.message-time {
+    font-size: 0.7rem;
+    color: #a1885f;
+    text-align: right;
+    margin-top: 4px;
+}
+
+/* ===================================================================
+   6. ОРАНЖЕВАЯ КАПСУЛА ВВОДА BBM И КОРЗИНА (ФИКС СЕТКИ)
+   =================================================================== */
+.mail-input-area {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    background: #ffebaa !important; 
+    padding: 8px 16px !important;
+    border-radius: 30px !important;
+    border: 2px solid #ffbc6e !important; 
+    box-shadow: inset 0 2px 4px rgba(92, 58, 0, 0.1) !important;
+    width: calc(100% - 4px) !important; 
+    margin: 10px auto 0 auto !important;
+    box-sizing: border-box !important;
+    position: relative !important;
+}
+
+.clear-chat-btn {
+    background: #ffd966 !important;
+    color: #4a3511 !important;
+    border: none !important;
+    width: 32px !important;   
+    height: 32px !important;
+    min-width: 32px !important;
+    max-height: 32px !important;
+    border-radius: 50% !important; 
+    font-size: 1rem !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: 0 3px 0 #b97f10 !important;
+    transition: all 0.1s ease !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.clear-chat-btn:hover { background: #ffbc6e !important; }
+
+#mail-input-field {
+    flex: 1 !important;
+    border: none !important;
+    background: transparent !important;
+    padding: 6px 5px !important;
+    font-size: 0.95rem !important;
+    color: #4a3511 !important;
+    outline: none !important;
+}
+
+/* ===================================================================
+   7. КНОПКИ УПРАВЛЕНИЯ И ОТЗЫВЫ
+   =================================================================== */
+button, .action-btn, .small-btn {
+    background: linear-gradient(135deg, #ffaa33 0%, #ff8c00 100%) !important;
+    color: white !important;
+    border: none !important;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #b4621a;
+    transition: all 0.1s ease;
+}
+
+button:hover, .action-btn:hover {
+    background: linear-gradient(135deg, #ffbc6e 0%, #ff9f1c 100%) !important;
+}
+
+button:active, .action-btn:active {
+    transform: translateY(3px);
+    box-shadow: 0 1px 0 #b4621a;
+}
+
+.day-btn {
+    background: linear-gradient(135deg, #4caf50 0%, #2e7d32 100%) !important;
+    box-shadow: 0 4px 0 #1b5e20;
+}
+.day-btn:hover {
+    background: linear-gradient(135deg, #66bb6a 0%, #43a047 100%) !important;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.actions button { flex: 1; }
+
+/* КАСТОМНЫЙ ЯНТАРНЫЙ СКРОЛЛБАР */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #ffdf9e; border-radius: 10px; }
+::-webkit-scrollbar-thumb { background: #ff9f1c; border-radius: 10px; }
+
+/* ОТЗЫВЫ */
+.reviews-list { overflow-y: auto; height: 100%; }
+.review-item {
+    background: #fffae8;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+/* ===================================================================
+   8. УЛЬТИМАТИВНЫЙ ФИКС ДЛЯ ОКНА ВАЛИ (БЕЗОПАСНОСТЬ СЕТКИ)
+   =================================================================== */
+.modal-overlay {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    background: rgba(92, 58, 0, 0.5) !important; /* Настоящее фоновое затемнение */
+    display: none !important; /* НАМЕРТВО СКРЫТО ОТ ИНТЕРФЕЙСА ПО УМОЛЧАНИЮ */
+    align-items: center !important;
+    justify-content: center !important;
+    z-index: 99999 !important; /* Всегда парит на самом верхнем слое окон */
+}
+
+/* Класс-триггер: включается только по команде JS из game.js */
+.modal-overlay.active {
+    display: flex !important;
+}
+
+.modal-content {
+    background: #fffdf5 !important;
+    padding: 25px !important;
+    border-radius: 20px !important;
+    border: 3px solid #ffbc6e !important;
+    box-shadow: 0 10px 30px rgba(92, 58, 0, 0.25) !important;
+    max-width: 500px !important; /* Увеличили с 450px до 500px */
+    width: 95% !important;
+    box-sizing: border-box !important;
+}
+
+.purchase-item {
+    display: flex !important;
+    flex-direction: column !important; /* Строго вертикальная структура */
+    align-items: stretch !important;
+    background: #fffae8 !important;
+    padding: 16px !important;
+    border-radius: 12px !important;
+    margin-top: 15px !important;
+    border: 1px solid #ffd166 !important;
+    gap: 12px !important; /* Одинаковые аккуратные отступы между всеми элементами */
+}
+
+.clear-btn {
+    background: linear-gradient(135deg, #7a5f33 0%, #4a3511 100%) !important;
+    box-shadow: 0 3px 0 #2b1f0a !important;
+}
+
+/* ПАНЕЛЬ СУДА НАД СТАРЛИКОВ */
+.rival-header { display: flex; gap: 15px; align-items: center; margin-bottom: 20px; }
+.rival-avatar { font-size: 2.5rem; }
+.rival-stats { margin-bottom: 25px; }
+.rival-power-bar, .compromat-bar { margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+progress { width: 60%; height: 15px; border-radius: 8px; }
+
+/* ===================================================================
+   11. СДВИГ ПЛАШКИ ВВОДА ВЛЕВО ДЛЯ ИДЕАЛЬНОЙ ВМЕСТИМОСТИ
+   =================================================================== */
+
+/* Делаем окно еще шире, чтобы текст дышал вольно */
+.modal-content {
+    max-width: 520px !important; 
+    width: 95% !important;
+}
+
+/* Сдвигаем счетчик количества влево внутри карточки */
+.amount-picker {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important; /* Прижали элементы к левому краю */
+    gap: 15px !important; /* Удобный отступ между надписью и круглым инпутом */
+    width: 100% !important;
+}
+
+/* Округлый инпут количества */
+#restock-items-count {
+    width: 75px !important;
+    padding: 6px !important;
+    border: 2px solid #ffbc6e !important;
+    border-radius: 20px !important;
+    text-align: center !important;
+    font-weight: bold !important;
+    font-size: 1.05rem !important;
+    background: #ffffff !important;
+    outline: none !important;
+}
+
+/* Текст итоговой стоимости выравниваем по правому краю для баланса */
+.cost-tag {
+    font-size: 1.05rem !important;
+    font-weight: bold !important;
+    color: #4a3511 !important;
+    text-align: right !important;
+    width: 100% !important;
+    margin: 8px 0 !important;
+}
