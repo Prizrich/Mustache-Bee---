@@ -1,47 +1,56 @@
+// ===================================================================
+// 1. ЕДИНСТВЕННАЯ И ОЧИЩЕННАЯ БАЗА ДАННЫХ ДЛЯ ИИ-ОТЗЫВОВ НА ВИТРИНЕ
+// ===================================================================
 const REVIEWS_DB = {
-    pepto: {
-        authorName: "PETPO",
+    Пепто: {
         positive: [
             "Ого, {product} всего за {price} кристаллов! Да это же халява! 💰",
-            "Наконец-то адекватная цена на {product}! PETPO доволен! 👍",
+            "Наконец-то адекватная цена на {product}! Пепто доволен! 👍",
             "Сделка века! Раскупаем {product}, пока ценник не улетел в космос! 🚀"
         ],
         negative: [
             "{product} за {price}? Да ты с ума сошёл! Дорого, как у Старлика! 😡",
-            "Скидку давай на {product}! Я за такие деньги лучше металлолом куплю! 🛰️"
+            "Скидку давай на {product}! Я за такие деньги лучше металлолом куплю! 🛰️",
+            "Жадность губит улей! Ценник на {product} просто нереальный! 🛑"
         ]
     },
-    mushroom: {
-        authorName: "Гриб",
+    Гриб: {
         positive: [
             "Пчёлы жужжат одобрительно! {product} по цене {price} — успех! 🐝",
-            "Берёзовое заражение отступает, видя {product} за {price}! 🌲"
+            "Берёзовое заражение отступает, видя {product} за {price}! 🌲",
+            "Ваш вклад достаточно значим в сфере наших изучений {product}! 📜"
         ],
         negative: [
             "{product} за {price}? По лору это слишком дорого... 🕦",
-            "Пчёлы недовольно жужжат! {product} по цене {price} — провал! 🛑"
+            "Пчёлы недовольно жужжат! {product} по цене {price} — провал! 🛑",
+            "Таймеры на дверях заклинило от такой цены на {product}! 📉"
         ]
     },
-    karas: {
-        authorName: "KAPACb",
+    Карась: {
         positive: [
             "{product} по {price} — норм, но минус админу всё равно поставлю! ✍",
+            "Респект за {product}! Но оценки всего сервера всё равно снижу! 💣",
             "Контора временно не говна. {product} куплен, но я слежу за тобой... 👁️"
         ],
         negative: [
             "{product} за {price}? ДА ВЫ ОХРЕНЕЛИ! ВЗОРВУ МАГАЗИН! 💥💀",
-            "Антегрия за такое объявляет вам бойкот! Разнесу тут всё! 💣"
+            "Минус магазину! {price} за {product} — развод чистой воды! 😡",
+            "Антегрия за такое объявляет вам бойкот! Разнесу тут всё! 💣",
+            "Гриферы уже выехали по твою душу за такую цену на {product}! 🔥"
         ]
     }
 };
 
+// ===================================================================
+// 2. БАЗА ОТВЕТОВ В BBM-МЕССЕНДЖЕРЕ (ПОЧТЕ)
+// ===================================================================
 const MAIL_RESPONSES = {
     supplier: { discount: "Хорошо, скидка 10%! 🚚", default: "Спасибо за заказ! Склады полны. 📦" },
     pepto: { 
         discount: "Ого, скидка! Беру! 💰", 
         expensive: "Дороговато... Сдай лучше на металлолом! 🛰️", 
         default: "Норм, возьму пару штук. 👌", 
-        пасхалка: "Сам иди нафиг! Я вообще-то VIP-покупатель и единственный, кто твои ржавые спутники PETPO за кристаллы оценивал! 😡" 
+        пасхалка: "Сам иди нафиг! Я вообще-то VIP-покупатель и единственный, кто твои ржавые спутники Пепто за кристаллы оценивал! 😡" 
     },
     mushroom: { 
         recipe: "Держи рецепт пчелиного почкования! +5 репутации! 🔬", 
@@ -61,36 +70,64 @@ const MAIL_RESPONSES = {
     nahida: {
         joke: [
             "🤖 Заходит Старлик в киберпанк-бар, а бармен ему говорит: 'Мы модераторов с синдромом вахтёра не обслуживаем!'. А Старлик отвечает: 'Я сам этот бар удалю!'",
-            "🐟 Знаешь, почему KAPACb играет с Иксреем? Потому что без читов он не может найти даже собственную совесть!",
+            "🐟 Знаешь, почему Карась играет с Иксреем? Потому что без читов он не может найти даже собственную совесть!",
             "🐝 Купил Гриб пчелу, пытается её отпочковать, а она ему говорит: 'Березовый 5G не ловит, подсоби извне по-братски!'"
         ],
         market_good: "📈 Рынок стабилен! Цены оптимальные, репутация держится. Пчёлы работают отлично, доход идёт!",
-        market_bad: "📉 Шухер! KAPACb вовсю спамит гневные отзывы, а Старлик душит налогами. Срочно снижай цены или запускай листовки!",
+        market_bad: "📉 Шухер! Карась вовсю спамит гневные отзывы, а Старлик душит налогами. Срочно снижай цены или запускай листовки!",
         default: "🤙 Я на связи! Пиши 'анекдот' — поржём, или 'что по рынку' — раскидаю за экономику.",
         пасхалка: "Ахахаха! Хорош! Напиши это Старлику в ЛС, у него вся серверная консоль синим пламенем сгорит! 😂🔥"
-    }
+    },
+    system: { tip: "Отвечайте на отзывы вовремя! 💡", default: "Хорошего дня! Творите без диктатуры! ☀️" }
 };
 
+// ===================================================================
+// 3. ДВИЖОК ДЛЯ ИНТЕРПРЕТАЦИИ РЕЧИ И ГЕНЕРАЦИИ СЮЖЕТА
+// ===================================================================
 class AIDirector {
-    static generateReviewText(slug, productName, isPositive, currentPrice) {
-        const character = REVIEWS_DB[slug];
+    static generateReviewText(author, productName, isPositive, currentPrice) {
+        const character = REVIEWS_DB[author];
         if (!character) return `${productName} за ${currentPrice} 💎? Норм!`;
         const pool = isPositive ? character.positive : character.negative;
-        return pool[Math.floor(Math.random() * pool.length)].replace(/{product}/g, productName).replace(/{price}/g, currentPrice);
+        const template = pool[Math.floor(Math.random() * pool.length)];
+        return template.replace(/{product}/g, productName).replace(/{price}/g, currentPrice);
     }
 
     static getMailResponse(character, message) {
         const lower = message.toLowerCase();
-        if (lower.includes("пошел нахуй") || lower.includes("пошла нахуй") || lower.includes("пшел нахуй")) return "пасхалка";
+        
+        // ГЛОБАЛЬНЫЙ ПЕРЕХВАТ РУГАТЕЛЬСТВ И ПАСХАЛОК
+        if (lower.includes("пошел нахуй") || lower.includes("пошла нахуй") || lower.includes("пшел нахуй")) {
+            return "пасхалка";
+        }
 
+        // Логика чата Нахиды
         if (character === "nahida") {
-            if (lower.includes("анекдот") || lower.includes("рофл")) return "joke";
-            if (lower.includes("рынок") || lower.includes("что по рынку")) return "market_good";
+            if (lower.includes("анекдот") || lower.includes("рофл") || lower.includes("шут")) return "joke";
+            if (lower.includes("рынок") || lower.includes("что по рынку") || lower.includes("курс") || lower.includes("цен")) {
+                return "market_good";
+            }
             return "default_nahida";
         }
 
-        const triggers = { "скидк": "discount", "дорог": "expensive", "цена": "expensive", "бан": "threat", "взрыв": "threat" };
-        for (let key in triggers) { if (lower.includes(key)) return triggers[key]; }
+        // Логика остальных персонажей
+        const triggers = {
+            "скидк": "discount",
+            "уступ": "discount",
+            "дорог": "expensive",
+            "цена": "expensive",
+            "рецепт": "recipe",
+            "компромат": "threat",
+            "суд": "threat",
+            "бан": "threat"
+        };
+
+        for (let key in triggers) {
+            if (lower.includes(key)) {
+                if (character === "pepto" && triggers[key] === "discount") return "discount_pepto";
+                return triggers[key];
+            }
+        }
         return "default";
     }
 }
