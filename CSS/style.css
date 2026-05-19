@@ -627,3 +627,94 @@ progress { width: 60%; height: 15px; border-radius: 8px; }
     box-shadow: 0 1px 0 #9b1c1c !important;
 }
 
+/* ===================================================================
+   12. УЛЬТИМАТИВНЫЙ АДАПТИВ ДЛЯ ТЕЛЕФОНОВ (ФИКС СБОЕВ И ВЫЛЕЗАНИЯ ЧАТА)
+   =================================================================== */
+
+/* Фикс слипания текста в статистике (как на скриншоте) */
+.stats-bar {
+    display: flex !important;
+    flex-wrap: wrap !important; /* Разрешаем тексту переноситься на новые строчки, если тесно */
+    gap: 10px !important;
+    justify-content: center !important;
+    text-align: center !important;
+}
+
+.stats-bar div {
+    min-width: 120px !important; /* Даем каждому показателю свободное место */
+    font-size: 0.9rem !important;
+}
+
+/* Фикс кнопок управления (чтобы не сжимались в кашу) */
+.actions {
+    flex-wrap: wrap !important; /* На телефонах кнопки встанут красиво в два ряда */
+}
+
+.actions .action-btn {
+    min-width: 100px !important;
+}
+
+/* МАГИЯ АДАПТИВА ДЛЯ СМАРТФОНОВ (Экран меньше 850 пикселей) */
+@media (max-width: 850px) {
+    /* Перестраиваем сетку: панели встают друг под друга, а не в ряд */
+    .game-main {
+        display: flex !important;
+        flex-direction: column !important;
+        height: auto !important; /* Убираем жесткие 650px, чтобы панели не сжимали друг друга */
+        gap: 25px !important;
+    }
+
+    /* Левая панель товаров */
+    .shop-panel {
+        height: auto !important;
+    }
+
+    /* Запираем витрину товаров на телефоне, чтобы скроллбар работал аккуратно */
+    .products-area {
+        max-height: 400px !important;
+    }
+
+    /* ПРАВАЯ ПАНЕЛЬ С ЧАТОМ (Жесткий фикс вылезания за рамки коробки) */
+    .windows-panel {
+        height: 550px !important; /* На телефонах даем фиксированную высоту всей коробке чата */
+    }
+
+    /* Растягиваем мессенджер BBM внутри коробки */
+    #mail-window {
+        grid-template-columns: 90px 1fr !important; /* Сужаем колонку контактов, чтобы чат был шире */
+        height: calc(100% - 50px) !important; /* Оставляем место под вкладки */
+    }
+
+    /* Уменьшаем иконки контактов, чтобы они влезли на экран телефона */
+    .mail-contact {
+        padding: 6px 4px !important;
+        font-size: 0.75rem !important;
+        text-align: center !important;
+    }
+    
+    .mail-contact .contact-name {
+        display: block !important; /* Показываем имя под иконкой или аккуратной строчкой */
+    }
+
+    /* Сама резиновая область сообщений */
+    .mail-messages {
+        max-height: 320px !important; /* Строго ограничиваем высоту переписки на телефоне */
+        flex: 1 1 auto !important;
+    }
+
+    /* Медовая капсула ввода на телефоне */
+    .mail-input-area {
+        width: 100% !important;
+        margin: 5px 0 0 0 !important;
+        padding: 6px 10px !important;
+    }
+    
+    #mail-input-field {
+        font-size: 0.85rem !important; /* Чуть уменьшаем шрифт ввода на телефоне */
+    }
+    
+    .mail-input-area .small-btn {
+        padding: 6px 12px !important;
+        font-size: 0.8rem !important;
+    }
+}
