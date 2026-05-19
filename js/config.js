@@ -26,3 +26,13 @@ const GAME_CONFIG = {
     startReputation: 50,
     compromatNeeded: 100
 };
+
+const MAIL_DIALOGS = {
+    system: { name: "Система" },
+    supplier: { name: "Поставщики" },
+    pepto: { name: "Пепто" },
+    mushroom: { name: "Гриб" },
+    karas: { name: "Карась" },
+    starlik: { name: "Старлик" },
+    nahida: { name: "Нахида" }
+};
