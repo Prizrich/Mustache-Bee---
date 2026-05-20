@@ -290,7 +290,7 @@ function triggerNextDay() {
         renderShowcaseProducts();
         
         document.getElementById("day-loading-screen").style.display = "none";
-        alert(`Новый день настал!\nВыручка: +${Math.floor(report.revenue)} 💎\nОпыт ЛОРА: +${report.exp}`);
+        alert(`Новый день настал!\nВыручка: +${Math.floor(report.revenue)} 💎\nОпыт: +${report.exp}`);
     }, 600);
 }
 
