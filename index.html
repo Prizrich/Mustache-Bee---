@@ -31,7 +31,7 @@
         <div class="stats-bar">
             <div>💎 Баланс: <span id="stat-money">5000</span> кристаллов</div>
             <div>📈 Уровень улья: <span id="stat-level">1</span></div>
-            <div>✨ Опыт лора: <span id="stat-exp">0</span> / 1000</div>
+            <div>✨ Опыт: <span id="stat-exp">0</span> / 1000</div>
             <div>⭐️ Репутация: <span id="stat-reputation">50</span> / 100</div>
         </div>
 
@@ -40,7 +40,7 @@
                 <div class="actions">
                     <button class="action-btn day-btn" onclick="triggerNextDay()">☀️ Следующий день</button>
                     <button class="action-btn" onclick="triggerMarketing()">📢 Запустить рекламу (500 💎)</button>
-                    <button class="action-btn reset-game-btn" onclick="triggerResetGame()">🔄 Сброс лора</button>
+                    <button class="action-btn reset-game-btn" onclick="triggerResetGame()">🔄 Сброс</button>
                 </div>
                 
                 <h3>🛒 Твоя витрина товаров</h3>
@@ -71,7 +71,6 @@
                         </div>
                         <div class="mail-messages" id="chat-messages-box"></div>
                         
-                        <!-- НОВАЯ СТРУКТУРА: КНОПКА НАДЁЖНО СИДИТ ВНУТРИ ОДНОЙ ПАНЕЛИ -->
                         <div class="mail-input-area">
                             <button class="clear-chat-btn" onclick="clearCurrentChat()">🗑️</button>
                             <input type="text" id="mail-input-field" placeholder="Напиши ответ..." onkeydown="if(event.key==='Enter') sendMailMessage()">
