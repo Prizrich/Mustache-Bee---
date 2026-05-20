@@ -8,7 +8,6 @@
 </head>
 <body>
 
-    <!-- ЭКРАН СМЕНЫ ДНЯ -->
     <div id="day-loading-screen" class="loading-screen" style="display: none;">
         <div class="loading-content">
             <h2>🐝 Наступает следующий день...</h2>
@@ -17,20 +16,18 @@
     </div>
 
     <div class="game-container">
-        <!-- ВЫВЕСКА И ОБНОВЛЕННЫЕ УСЫ -->
         <header class="signboard">
             <div class="bee-logo-wrapper">
                 <div class="bee-logo">
                     <span class="top-hat">🎩</span>
                     <span class="bee-emoji">🐝</span>
-                    <span class="mustache">˘˘</span> 
-            </div>
+                    <span class="mustache">˘˘</span>
+                </div>
             </div>
             <h1>Усатый пчел</h1>
             <p class="slogan">Управляй ульем, закупай товары и развивай свой медовый бизнес!</p>
         </header>
 
-        <!-- ПАНЕЛЬ СТАТИСТИКИ -->
         <div class="stats-bar">
             <div>💎 Баланс: <span id="stat-money">5000</span> кристаллов</div>
             <div>📈 Уровень улья: <span id="stat-level">1</span></div>
@@ -39,7 +36,6 @@
         </div>
 
         <div class="game-main">
-            <!-- ЛЕВАЯ СТОРОНА: ВИТРИНА И ТОВАРЫ -->
             <div class="shop-panel">
                 <div class="actions">
                     <button class="action-btn day-btn" onclick="triggerNextDay()">☀️ Следующий день</button>
@@ -48,12 +44,9 @@
                 </div>
                 
                 <h3>🛒 Твоя витрина товаров</h3>
-                <div class="products-area" id="products-container">
-                    <!-- Генерируется через game.js -->
-                </div>
+                <div class="products-area" id="products-container"></div>
             </div>
 
-            <!-- ПРАВАЯ СТОРОНА: СУД И МЕССЕНДЖЕР BBM -->
             <div class="windows-panel">
                 <div class="window-tabs">
                     <button class="window-tab active" onclick="switchTab('mail')">📬 Почта BBM</button>
@@ -61,7 +54,6 @@
                     <button class="window-tab" onclick="switchTab('court')">⚖️ Суд над Старликом</button>
                 </div>
 
-                <!-- ОКНО ПОЧТЫ С ОБНОВЛЕННЫМИ КОНТАКТАМИ -->
                 <div id="mail-window" class="window-content active">
                     <div class="mail-sidebar">
                         <div class="mail-contacts" id="contacts-list">
@@ -77,11 +69,9 @@
                         <div class="mail-header">
                             <span class="mail-contact-name" id="current-contact-title">Система</span>
                         </div>
-                        <div class="mail-messages" id="chat-messages-box">
-                            <!-- Сообщения -->
-                        </div>
+                        <div class="mail-messages" id="chat-messages-box"></div>
                         
-                        <!-- ПРАВИЛЬНАЯ ШЕСТЕРЕНКА ВВОДА -->
+                        <!-- НОВАЯ СТРУКТУРА: КНОПКА НАДЁЖНО СИДИТ ВНУТРИ ОДНОЙ ПАНЕЛИ -->
                         <div class="mail-input-area">
                             <button class="clear-chat-btn" onclick="clearCurrentChat()">🗑️</button>
                             <input type="text" id="mail-input-field" placeholder="Напиши ответ..." onkeydown="if(event.key==='Enter') sendMailMessage()">
@@ -90,14 +80,10 @@
                     </div>
                 </div>
 
-                <!-- ОКНО ОТЗЫВОВ -->
                 <div id="reviews-window" class="window-content">
-                    <div class="reviews-list" id="reviews-container-box">
-                        <!-- Отзывы -->
-                    </div>
+                    <div class="reviews-list" id="reviews-container-box"></div>
                 </div>
 
-                <!-- ОКНО СУДА -->
                 <div id="court-window" class="window-content">
                     <div class="rival-header">
                         <div class="rival-avatar">⛓️👨‍💼</div>
@@ -118,13 +104,10 @@
         </div>
     </div>
 
-    <!-- МОДАЛКА ЗАКУПКИ У ВАЛИ -->
     <div class="modal-overlay" id="supplier-modal">
         <div class="modal-content">
             <h3>📦 Поставка сырья от Вали</h3>
-            <div class="purchase-list" id="supplier-items-list">
-                <!-- Контент через JS -->
-            </div>
+            <div class="purchase-list" id="supplier-items-list"></div>
             <div style="text-align:right; margin-top:15px;">
                 <button class="action-btn clear-btn" onclick="closeSupplierModal()">Закрыть</button>
             </div>
@@ -134,5 +117,9 @@
     <script src="js/config.js"></script>
     <script src="js/ai.js"></script>
     <script src="js/game.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/shop.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/audio.js"></script>
 </body>
 </html>
