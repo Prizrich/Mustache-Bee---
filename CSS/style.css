@@ -1,5 +1,5 @@
 /* ===================================================================
-   1. ОБЩИЕ СТИЛИ И ОРИГИНАЛЬНЫЙ МЕДОВЫЙ ФОН
+   1. ОБЩИЕ СТИЛИ И ОРИГИНАЛЬНЫЙ МЕДОВЫЙ ФОН (УВЕЛИЧЕННЫЙ КОНТЕЙНЕР)
    =================================================================== */
 body {
     margin: 0;
@@ -15,7 +15,7 @@ h1, h2, h3, h4 {
 }
 
 .game-container {
-    max-width: 1200px;
+    max-width: 1400px !important; /* УВЕЛИЧЕНО С 1200px ДО 1400px ДЛЯ ИДЕАЛЬНОЙ СЕТКИ */
     margin: 20px auto;
     padding: 20px;
     background: #ffebaa;
@@ -60,7 +60,7 @@ h1, h2, h3, h4 {
     z-index: 2; 
 }
 
-/* ТВОИ ИДЕАЛЬНЫЕ КООРДИНАТЫ УСОВ И ШЛЯПЫ */
+/* ЗАЛОЧЕННЫЕ СТАБИЛЬНЫЕ КООРДИНАТЫ ИЗ ТВОЕГО БЭКАПА */
 .mustache { 
     position: absolute; 
     font-size: 28px; 
@@ -105,12 +105,11 @@ h1, h2, h3, h4 {
 }
 
 /* ===================================================================
-   4. ДВУХКОЛОННАЯ СЕТКА ИНТЕРФЕЙСА (СУЖАЕМ ПЛАШКУ ТОВАРОВ)
+   4. ДВУХКОЛОННАЯ СЕТКА ИНТЕРФЕЙСА (ПРОПОРЦИИ ДЛЯ ШИРОКОГО ОКНА)
    =================================================================== */
 .game-main {
     display: grid !important;
-    /* Товары строго 350px, а весь остальной экран отдаём чату, чтобы он распрямился! */
-    grid-template-columns: 350px 1fr !important;
+    grid-template-columns: 1fr 1.3fr !important; /* Ровный баланс сторон без сжатий */
     gap: 20px;
     height: 650px !important;
     align-items: stretch !important;
@@ -243,7 +242,7 @@ h1, h2, h3, h4 {
     flex-direction: column !important;
     justify-content: space-between !important;
     height: 100% !important;
-    max-height: 520px !important; /* Намертво держит высоту внутри бокса */
+    max-height: 520px !important; 
     box-sizing: border-box !important;
     overflow: hidden !important;
 }
@@ -293,11 +292,10 @@ h1, h2, h3, h4 {
     gap: 10px !important; 
     background: #ffebaa !important; 
     padding: 8px 12px !important;
-    border-radius: 8px !important; /* Делаем прямоугольной, чтобы флексы не сжимали углы */
+    border-radius: 8px !important; 
     border: 2px solid #ffbc6e !important; 
     box-shadow: inset 0 2px 4px rgba(92, 58, 0, 0.1) !important;
     
-    /* Заставляем встать идеально по ширине расширенного окна чата */
     width: calc(100% - 20px) !important; 
     margin: auto 10px 10px 10px !important; 
     box-sizing: border-box !important;
@@ -318,7 +316,6 @@ h1, h2, h3, h4 {
     box-shadow: 0 3px 0 #b97f10 !important;
 }
 
-/* ЖЕСТКИЙ ЗАСТАВЛЯЮЩИЙ ФЛЕКС: СТРОКА ЗАБИРАЕТ ВСЕ СВОБОДНЫЕ ПИКСЕЛИ */
 #mail-input-field {
     flex-grow: 1 !important; 
     flex-shrink: 1 !important;
@@ -332,7 +329,6 @@ h1, h2, h3, h4 {
     box-sizing: border-box !important;
 }
 
-/* КНОПКА СИДИТ СТРОГО ВНУТРИ И НЕ СЖИМАЕТСЯ */
 .mail-input-area .small-btn {
     padding: 8px 16px !important;
     font-size: 0.9rem !important;
@@ -343,7 +339,7 @@ h1, h2, h3, h4 {
 }
 
 /* ===================================================================
-   7. КНОПКИ УПРАВЛЕНИЯ, СКРОЛЛБАР И ОТЗЫВЫ
+   7. ЖЕСТКИЙ ФИКС ВЕРХНИХ КНОПОК ДЕЙСТВИЙ (ЧТОБЫ НЕ ЖЕВАТЬ ТЕКСТ)
    =================================================================== */
 button, .action-btn, .small-btn {
     background: linear-gradient(135deg, #ffaa33 0%, #ff8c00 100%) !important;
@@ -362,13 +358,19 @@ button, .action-btn, .small-btn {
 .actions {
     display: flex !important;
     flex-direction: row !important;
-    gap: 10px !important;
+    gap: 8px !important; /* Компактный зазор */
     margin-bottom: 20px !important;
     width: 100% !important;
     flex-shrink: 0;
 }
 
-.actions .action-btn { flex: 1 !important; font-size: 0.85rem !important; padding: 10px 5px !important; white-space: nowrap !important; }
+.actions .action-btn { 
+    flex: 1 !important; 
+    font-size: 0.8rem !important; /* УМЕНЬШИЛИ ШРИФТ ДЛЯ 100% ВМЕСТИМОСТИ РЕКЛАМЫ И СБРОСА */
+    padding: 10px 4px !important; /* Уменьшили боковые внутренние отступы плашек */
+    white-space: nowrap !important; 
+    text-align: center !important;
+}
 
 .products-area {
     display: block !important;
@@ -378,7 +380,6 @@ button, .action-btn, .small-btn {
     box-sizing: border-box !important;
 }
 
-/* ЯНТАРНЫЙ СКРОЛЛБАР */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: #ffdf9e; border-radius: 10px; }
 ::-webkit-scrollbar-thumb { background: #ff9f1c; border-radius: 10px; }
